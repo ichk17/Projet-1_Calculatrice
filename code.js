@@ -23,44 +23,54 @@ function division(nombreA, nombreB) {
     return nombreA / nombreB;
 }
 
-// MENU : Demande un choix
+// Cette variable vaut false ce qui veut dire que par défaut, nous ne reproposons par un calcul.
+let restart = false;
+
+// On rentre dans la boucle principale
 do {
-    var choix = Number(prompt("Que souhaitez-vous faire ?\n\n 1 - Addition\n 2 - Multiplication\n 3 - Soustraction\n 4 - Division\n"));
-} while(choix !== 1 && choix !== 2 && choix !== 3 && choix !== 4)
 
-// Demande deux nombres
-do {
-    var premierNombre = Number(prompt("Entrez un premier nombre :"));
-    var deuxiemeNombre = Number(prompt("Entrez un deuxième nombre :"));
-} while(isNaN(premierNombre) || isNaN(deuxiemeNombre))
+    // MENU : Demande un choix
+    do {
+        var choix = Number(prompt("Que souhaitez-vous faire ?\n\n 1 - Addition\n 2 - Multiplication\n 3 - Soustraction\n 4 - Division\n"));
+    } while(choix !== 1 && choix !== 2 && choix !== 3 && choix !== 4)
 
-// Appelle la fonction choisie
-try {
-    switch (choix) {
-        case 1:
-            var resultat = addition(premierNombre, deuxiemeNombre);
-            break;
+    // Boîte de dialogue : Demande deux nombres
+    do {
+        var premierNombre = Number(prompt("Entrez un premier nombre :"));
+        var deuxiemeNombre = Number(prompt("Entrez un deuxième nombre :"));
+    } while(isNaN(premierNombre) || isNaN(deuxiemeNombre))
 
-        case 2:
-            var resultat = multiplication(premierNombre, deuxiemeNombre);
-            break;
+    // Appelle la fonction choisie
+    try {
+        switch (choix) {
+            case 1:
+                var resultat = addition(premierNombre, deuxiemeNombre);
+                break;
 
-        case 3:
-            var resultat = soustraction(premierNombre, deuxiemeNombre);
-            break;
+            case 2:
+                var resultat = multiplication(premierNombre, deuxiemeNombre);
+                break;
 
-        case 4:
-            var resultat = division(premierNombre, deuxiemeNombre);
-            break;
+            case 3:
+                var resultat = soustraction(premierNombre, deuxiemeNombre);
+                break;
 
-        default:
-            throw new Error("Une erreur est survenue.");
+            case 4:
+                var resultat = division(premierNombre, deuxiemeNombre);
+                break;
+
+            default:
+                throw new Error("Une erreur est survenue.");
+        }
+        // Affiche le résultat
+        alert("Voici le résultat : " + resultat);
+
+    }
+    catch(error) {
+        alert(error); // Si une erreur est survenue, on affiche l'erreur
     }
 
-    // Affiche le résultat
-    alert("Voici le résultat : " + resultat);
+    // On demande grâce à la boîte de dialogue confirm() si l'utilisateur veut recommencer
+    restart = confirm("Souhaitez-vous recommencer un calcul ?");
 
-}
-catch(error) {
-    alert(error); // Si une erreur est survenue, on affiche l'erreur
-}
+} while (restart);
